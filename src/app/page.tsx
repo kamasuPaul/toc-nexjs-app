@@ -1,12 +1,12 @@
 import TableSummary from "./components/TableSummary";
 export default function Home() {
-  const tables = function tables(){
-    const items = [1,2,3];
-    return items.map(function(item){
+  const tables = function tables() {
+    const items = [1, 2, 3];
+    return items.map(function (item) {
       return <TableSummary key={item}></TableSummary>
     })
   };
-  const items = [1,2,3];
+  const items = [1, 2, 3];
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-start">
@@ -26,11 +26,13 @@ export default function Home() {
         </div>
       </div>
       <div className="text-center max-w-8xl pt-10">
-        <h1 className="text-6xl font-bold">Create beatiful Table of Contents</h1>
+        <h1 className="text-6xl font-bold">Create beatiful Tables of Contents</h1>
         <p className="py-6 text-2xl opacity-50">Create, edit and find tables of contents</p>
       </div>
       <div>
-        {items.map(item=>(<TableSummary key={item}></TableSummary>))}
+      </div>
+      <div className="columns-3">
+      {items.map(item => (<TableSummary key={item}></TableSummary>))}
       </div>
     </main>
   )
