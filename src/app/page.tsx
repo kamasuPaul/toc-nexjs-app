@@ -1,18 +1,36 @@
-
+import TableSummary from "./components/TableSummary";
 export default function Home() {
+  const tables = function tables(){
+    const items = [1,2,3];
+    return items.map(function(item){
+      return <TableSummary key={item}></TableSummary>
+    })
+  };
+  const items = [1,2,3];
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Table Of Contents
-        </p>
-        <div className="fixed bottom-0 gap-2 p-8 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-            By
-            <a href='https://kamasupaul.com'>Kamasu Paul</a>
+    <main className="flex min-h-screen flex-col items-center justify-start">
+      <div className="navbar bg-base-100">
+        <div className="flex-1">
+          <a className="btn btn-ghost normal-case text-xl">Table of contents</a>
+        </div>
+        <div className="flex-none gap-2">
+          <div className="form-control">
+            <input type="text" placeholder="Search" className="input input-bordered input-sm input-primary" />
+          </div>
+          <div className="avatar placeholder">
+            <div className="bg-neutral-focus text-neutral-content rounded-full w-8">
+              <span className="text-xs">AA</span>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
+      <div className="text-center max-w-8xl pt-10">
+        <h1 className="text-6xl font-bold">Create beatiful Table of Contents</h1>
+        <p className="py-6 text-2xl opacity-50">Create, edit and find tables of contents</p>
+      </div>
+      <div>
+        {items.map(item=>(<TableSummary key={item}></TableSummary>))}
       </div>
     </main>
   )
