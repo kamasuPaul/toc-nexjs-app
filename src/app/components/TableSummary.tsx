@@ -2,7 +2,7 @@ import Image from "next/image";
 export default function TableSummary() {
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
-            <figure><img src="/images/test.jpg" alt="Shoes" /></figure>
+            <figure><img src="/images/sb.jpg" alt="Shoes" /></figure>
             <div className="card-body">
                 <h2 className="card-title">
                     Shoes!
