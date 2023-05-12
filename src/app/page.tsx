@@ -1,5 +1,9 @@
+'use client';//TODO: fix this
+import { useState } from "react";
 import TableSummary from "./components/TableSummary";
+import AddTableModal from "./components/AddTableModal";
 export default function Home() {
+  const [show, setShow] = useState(false);
   const tables = function tables() {
     const items = [1, 2, 3];
     return items.map(function (item) {
@@ -18,11 +22,11 @@ export default function Home() {
           <div className="form-control">
             <input type="text" placeholder="Search" className="input input-bordered input-sm input-primary" />
           </div>
-          <div className="avatar placeholder">
-            <div className="bg-neutral-focus text-neutral-content rounded-full w-8">
-              <span className="text-xs">AA</span>
-            </div>
-          </div>
+          <button onClick={() => setShow(!show)} className="btn btn-primary btn-wide btn-sm">
+            <label  >New table</label>
+
+          </button>
+
         </div>
       </div>
       <div className="text-center max-w-8xl pt-10">
@@ -32,8 +36,10 @@ export default function Home() {
       <div>
       </div>
       <div className="columns-3">
-      {items.map(item => (<TableSummary key={item}></TableSummary>))}
+        {items.map(item => (<TableSummary key={item}></TableSummary>))}
       </div>
+      {/* .Create table of contents model.................................. */}
+      <AddTableModal show={show} onClose={() => { setShow(false) }} />
     </main>
   )
 }
