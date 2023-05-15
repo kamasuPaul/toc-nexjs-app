@@ -30,8 +30,8 @@ export default function Home() {
         </div>
       </div>
       <div className="text-center max-w-8xl pt-10">
-        <h1 className="text-6xl font-bold">Create beatiful Tables of Contents</h1>
-        <p className="py-6 text-2xl opacity-50">Create, edit and find tables of contents</p>
+        <h1 className="text-6xl font-bold">Discover the Power of Tables of Contents</h1>
+        <p className="py-6 text-2xl opacity-50">Uncover the captivating chapters, topics, and subtopics that lie within every publication</p>
       </div>
       <div>
       </div>
