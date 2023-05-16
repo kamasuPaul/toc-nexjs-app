@@ -1,16 +1,24 @@
 'use client';//TODO: fix this
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TableSummary from "./components/TableSummary";
 import AddTableModal from "./components/AddTableModal";
+import api from "./utils/axiosInstance";
+
 export default function Home() {
   const [show, setShow] = useState(false);
-  const tables = function tables() {
-    const items = [1, 2, 3];
-    return items.map(function (item) {
-      return <TableSummary key={item}></TableSummary>
-    })
-  };
-  const items = [1, 2, 3];
+  const [tables, setTables] = useState([]);
+  //fetch tables from the api
+  useEffect(() => {
+    api.get('tables')
+      .then(response => {
+        const tables = response.data;
+        setTables(tables);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+
+  }, [])
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-start">
@@ -36,7 +44,7 @@ export default function Home() {
       <div>
       </div>
       <div className="columns-3">
-        {items.map(item => (<TableSummary key={item}></TableSummary>))}
+        {tables.map((table: Table) => (<TableSummary key={table.id} table={table}></TableSummary>))}
       </div>
       {/* .Create table of contents model.................................. */}
       <AddTableModal show={show} onClose={() => { setShow(false) }} />
