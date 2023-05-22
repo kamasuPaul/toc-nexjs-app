@@ -6,10 +6,10 @@ type Table ={
     contents: Array<Content>
 }
 type Content = {
-    id:string,
+    id?:string,
     name: string,
     level: number
     order: number,
-    page_no: string,
+    page_no: number,
     children: Array<Content>
 }
