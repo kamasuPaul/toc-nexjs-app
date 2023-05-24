@@ -17,10 +17,10 @@ export default function AddTableModal(props: {
   });
   const [contents, setContents] = useState<Array<Content>>([
     {
-      id: '1',
+      id: uuidv4(),
       name: '',
-      level: 0,
-      order: 0,
+      level: 1,
+      order: 1,
       page_no: 0,
       children: []
     }
@@ -32,8 +32,8 @@ export default function AddTableModal(props: {
     setContents(prevContents => [...prevContents, {
       id: uuidv4(),
       name: '',
-      level: 0,
-      order: 0,
+      level: 1,
+      order: prevContents.length+1,
       page_no: 0,
       children: [],
     }
@@ -82,19 +82,19 @@ export default function AddTableModal(props: {
     })
   }
   function addChildContent(parentId: string) {
-    const newContent = {
-      id: uuidv4(),
-      name: '',
-      level: 0,
-      order: 0,
-      page_no: 0,
-      children: [],
-    };
 
     setContents(prevContents => {
       // Find the parent content and update its children array
       const updatedContents = prevContents.map(content => {
         if (content.id === parentId) {
+          const newContent = {
+            id: uuidv4(),
+            name: '',
+            level: content.level+1,
+            order: content.children.length+1,
+            page_no: 0,
+            children: [],
+          };
           return {
             ...content,
             children: [...content.children, newContent],
@@ -102,7 +102,7 @@ export default function AddTableModal(props: {
         } else if (content.children.length > 0) {
           return {
             ...content,
-            children: addChildContentToChildren(content.children, parentId, newContent),
+            children: addChildContentToChildren(content.children, parentId),
           };
         }
         return content;
@@ -128,9 +128,17 @@ export default function AddTableModal(props: {
     });
   }
 
-  function addChildContentToChildren(children: Array<Content>, parentId: string, newContent: Content): Array<Content> {
+  function addChildContentToChildren(children: Array<Content>, parentId: string): Array<Content> {
     return children.map(child => {
       if (child.id === parentId) {
+        const newContent = {
+          id: uuidv4(),
+          name: '',
+          level: child.level+1,
+          order: child.children.length+1,
+          page_no: 0,
+          children: [],
+        };
         return {
           ...child,
           children: [...child.children, newContent],
@@ -138,7 +146,7 @@ export default function AddTableModal(props: {
       } else if (child.children.length > 0) {
         return {
           ...child,
-          children: addChildContentToChildren(child.children, parentId, newContent),
+          children: addChildContentToChildren(child.children, parentId),
         };
       }
       return child;
@@ -183,12 +191,13 @@ export default function AddTableModal(props: {
             <option value='research_papers'>Research Papers</option>
           </select>
           <div className="divider">Contents</div>
-
-          {
-            contents.map((content) => (
-              <Content indent={'1'} key={content.id} content={content} addChildContent={addChildContent} updateContent={updateContent} ></Content>
-            ))
-          }
+          <div className="w-11/12">
+            {
+              contents.map((content) => (
+                <Content indent={'1'} key={content.id} content={content} addChildContent={addChildContent} updateContent={updateContent} ></Content>
+              ))
+            }
+          </div>
           <button className="text-blue-500 ml-2 btn btn-xs btn-circle btn-outline"
             onClick={createRootContent}
           >+</button>
