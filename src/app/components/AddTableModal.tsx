@@ -83,7 +83,6 @@ export default function AddTableModal(props: {
     })
   }
   function addChildContent(parentId: string) {
-
     setContents(prevContents => {
       // Find the parent content and update its children array
       const updatedContents = prevContents.map(content => {
@@ -154,6 +153,45 @@ export default function AddTableModal(props: {
       return child;
     });
   }
+  function deleteContent(parentId: string) {
+
+    setContents(prevContents => {
+      // Find the parent content and update its children array
+      const containsItemWithId = prevContents.some(content => content.id === parentId);
+      if (containsItemWithId) {
+        return prevContents.filter(content => content.id !== parentId);
+      }
+      const updatedContents = prevContents.map(content => {
+        if (content.children.length > 0) {
+          return {
+            ...content,
+            children: deleteChildContent(content.children, parentId),
+          };
+        }
+        return content;
+      });
+
+      return updatedContents;
+    });
+  }
+  function deleteChildContent(children: Array<Content>, parentId: string): Array<Content> {
+    //if the delete flag is set, then remove the content
+    const containsItemWithId = children.some(content => content.id === parentId);
+    if (containsItemWithId) {
+      return children.filter(content => content.id !== parentId);
+    }
+    const updatedContents = children.map(content => {
+      if (content.children.length > 0) {
+        return {
+          ...content,
+          children: deleteChildContent(content.children, parentId),
+        };
+      }
+      return content;
+    });
+
+    return updatedContents;
+  }
   return (
     <div className="modal modal-open">
       <div className="modal-box w-11/12 max-w-5xl">
@@ -196,7 +234,7 @@ export default function AddTableModal(props: {
           <div className="w-11/12">
             {
               contents.map((content) => (
-                <Content indent={'1'} key={content.id} content={content} addChildContent={addChildContent} updateContent={updateContent} ></Content>
+                <Content indent={'1'} key={content.id} content={content} addChildContent={addChildContent} updateContent={updateContent} deleteContent={deleteContent} ></Content>
               ))
             }
           </div>
