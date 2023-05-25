@@ -33,7 +33,7 @@ export default function AddTableModal(props: {
       id: uuidv4(),
       name: '',
       level: 1,
-      order: prevContents.length+1,
+      order: prevContents.length + 1,
       page_no: 0,
       children: [],
     }
@@ -61,18 +61,19 @@ export default function AddTableModal(props: {
         console.log("done");
       })
   }
-  function updateContent(id: string, name: string) {
+  function updateContent(id: string, name: string, pageNo: number) {
     setContents(prevContents => {
       const updatedContents = prevContents.map((content) => {
         if (content.id === id) {
           return {
             ...content,
-            name: name
+            name: name,
+            page_no: pageNo,
           }
         } else if (content.children.length > 0) {
           return {
             ...content,
-            children: updateChildContent(content.children, id, name)
+            children: updateChildContent(content.children, id, name, pageNo),
           }
 
         }
@@ -90,8 +91,8 @@ export default function AddTableModal(props: {
           const newContent = {
             id: uuidv4(),
             name: '',
-            level: content.level+1,
-            order: content.children.length+1,
+            level: content.level + 1,
+            order: content.children.length + 1,
             page_no: 0,
             children: [],
           };
@@ -111,17 +112,18 @@ export default function AddTableModal(props: {
       return updatedContents;
     });
   }
-  function updateChildContent(children: Array<Content>, id: string, newName: string): Array<Content> {
+  function updateChildContent(children: Array<Content>, id: string, newName: string, pageNo: number): Array<Content> {
     return children.map(content => {
       if (content.id === id) {
         return {
           ...content,
           name: newName,
+          page_no: pageNo,
         }
       } else if (content.children.length > 0) {
         return {
           ...content,
-          children: updateChildContent(content.children, id, newName),
+          children: updateChildContent(content.children, id, newName, pageNo),
         };
       }
       return content;
@@ -134,8 +136,8 @@ export default function AddTableModal(props: {
         const newContent = {
           id: uuidv4(),
           name: '',
-          level: child.level+1,
-          order: child.children.length+1,
+          level: child.level + 1,
+          order: child.children.length + 1,
           page_no: 0,
           children: [],
         };
