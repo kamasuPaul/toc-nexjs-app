@@ -43,7 +43,7 @@ export default function Home() {
       </div>
       <div>
       </div>
-      <div className="columns-3">
+      <div className="grid grid-cols-3 gap-4">
         {tables.map((table: Table) => (<TableSummary key={table.id} table={table}></TableSummary>))}
       </div>
       {/* .Create table of contents model.................................. */}
