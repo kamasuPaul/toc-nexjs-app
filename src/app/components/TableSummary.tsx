@@ -3,10 +3,10 @@ import Image from "next/image";
 type Props = {
     table: Table
 }
-export default function TableSummary(props: Props) {
+export default function TableSummary(props: { onClick: () => void, table: Table}) {
     return (
-        <div className="card w-96 bg-base-100 shadow-xl">
-            <figure><img src="/images/sb.jpg" alt="Shoes" className="w-full h-72 scale-100" /></figure>
+        <div onClick={props.onClick} className="card w-full bg-base-100 shadow-xl cursor-pointer hover:bg-primary">
+            <figure><img src="/images/sb.jpg" alt="Shoes" className="w-full h-72 scale-100 hover:border-primary hover:border-4" /></figure>
             <div className="card-body">
                 <h2 className="card-title">
                     {props.table.name}
