@@ -3,10 +3,21 @@ import { useState, useEffect } from "react";
 import TableSummary from "./components/TableSummary";
 import AddTableModal from "./components/AddTableModal";
 import api from "./utils/axiosInstance";
+import ShowTableModal from "./components/ShowTableModal";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Home() {
   const [show, setShow] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [tables, setTables] = useState([]);
+  const [table, setTable] = useState<Table>({
+    id: '',
+    name: '',
+    description: '',
+    category: '',
+    contents: []
+  });
   //fetch tables from the api
   useEffect(() => {
     api.get('tables')
@@ -19,6 +30,24 @@ export default function Home() {
       })
 
   }, [])
+
+  function fetchTableDetails(table: Table) {
+    setLoading(true);
+    setShowEditModal(true);
+    api.get(`tables/${table.id}`)
+      .then((response) => {
+        const table = response.data;
+        console.log(table);
+        setTable(table);
+      })
+      .catch((error) => {
+        console.log(error);
+      }).
+      finally(() => {
+        setLoading(false);
+        console.log("done");
+      })
+  }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-start">
@@ -43,11 +72,13 @@ export default function Home() {
       </div>
       <div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {tables.map((table: Table) => (<TableSummary key={table.id} table={table}></TableSummary>))}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 m-4">
+        {tables.map((table: Table) => (<TableSummary onClick={() => fetchTableDetails(table)} key={table.id} table={table}></TableSummary>))}
       </div>
       {/* .Create table of contents model.................................. */}
       <AddTableModal show={show} onClose={() => { setShow(false) }} />
+      {/* .Edit table of contents model.................................. */}
+      {<ShowTableModal key={table.id} table={table} show={showEditModal} onClose={() => { setShowEditModal(false) }} />}
     </main>
   )
 }
