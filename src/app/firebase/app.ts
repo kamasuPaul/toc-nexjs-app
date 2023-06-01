@@ -1,5 +1,5 @@
 import { getApp, getApps, initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
+import { getAuth,setPersistence,browserLocalPersistence} from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 
 // Firebase configuration
@@ -18,6 +18,8 @@ const firebaseApp = !getApps().length ? initializeApp(firebaseConfig) : getApp()
 // Initialize Firebase services
 const firestore = getFirestore(firebaseApp)
 const auth = getAuth(firebaseApp)
+auth.setPersistence(browserLocalPersistence);
+
 
 console.log(auth);
 console.log(firebaseApp);
