@@ -20,9 +20,5 @@ const firestore = getFirestore(firebaseApp)
 const auth = getAuth(firebaseApp)
 auth.setPersistence(browserLocalPersistence);
 
-
-console.log(auth);
-console.log(firebaseApp);
-
 // Expose the instances we'll need
 export { firebaseApp, firestore, auth }
