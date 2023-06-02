@@ -1,4 +1,5 @@
 import { auth } from '../firebase/app';
+import Image from 'next/image';
 import { useAuthState, useSignInWithGoogle, useSignOut } from 'react-firebase-hooks/auth';
 const LoginModal = () => {
     const [user, loading, error] = useAuthState(auth);
@@ -22,7 +23,12 @@ const LoginModal = () => {
                 <div className="dropdown dropdown-end justify-end">
                     <div tabIndex={0} className="avatar justify-end">
                         <div className="w-1/3 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                            <img src={user.photoURL} />
+                            <Image
+                                src={user.photoURL || ""}
+                                width={400}
+                                height={400}
+                                alt="Picture of the author"
+                            />
                         </div>
                     </div>
                     <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
