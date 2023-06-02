@@ -5,6 +5,7 @@ import AddTableModal from "./components/AddTableModal";
 import api from "./utils/axiosInstance";
 import ShowTableModal from "./components/ShowTableModal";
 import { v4 as uuidv4 } from 'uuid';
+import LoginModal from "./components/LoginModal";
 
 export default function Home() {
   const [show, setShow] = useState(false);
@@ -63,6 +64,8 @@ export default function Home() {
             <label  >New table</label>
 
           </button>
+          {<LoginModal/>}
+
 
         </div>
       </div>

@@ -2,10 +2,14 @@ import api from "../utils/axiosInstance";
 import { useState } from "react";
 import Content from "./Content";
 import { v4 as uuidv4 } from 'uuid';
+import { auth } from '../firebase/app';
+import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 
 export default function AddTableModal(props: {
   onClose: () => void; show: boolean;
 }) {
+  const [user, authLoading, error] = useAuthState(auth);
+  const [signInWithGoogle] = useSignInWithGoogle(auth);
   const [loading, setLoading] = useState(false);
   const [violations, setViolations] = useState([]);
   const [table, setTable] = useState<Table>({
@@ -40,6 +44,10 @@ export default function AddTableModal(props: {
     ])
   }
   function creatNewtable() {
+    if(!user){
+      signInWithGoogle();
+      return;
+    }
     setLoading(true);
     setViolations([]);
     console.log("creating new table");
@@ -58,7 +66,6 @@ export default function AddTableModal(props: {
       }).
       finally(() => {
         setLoading(false);
-        console.log("done");
       })
   }
   function updateContent(id: string, name: string, pageNo: number) {
