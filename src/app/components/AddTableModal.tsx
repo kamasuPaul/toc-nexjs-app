@@ -17,6 +17,8 @@ export default function AddTableModal(props: {
     name: '',
     description: '',
     category: '',
+    image_url:'',
+    content_url:'',
     contents: []
   });
   const [contents, setContents] = useState<Array<Content>>([
@@ -227,6 +229,15 @@ export default function AddTableModal(props: {
           <input value={table.name} onChange={(event) => {
             setTable({ ...table, name: event.target.value })
           }} type="text" placeholder="Name" className="input input-bordered w-full " />
+
+          <input value={table.content_url} onChange={(event) => {
+            setTable({ ...table, content_url: event.target.value })
+          }} type="text" placeholder="Content url" className="input input-bordered w-full " />
+
+          <input value={table.image_url} onChange={(event) => {
+            setTable({ ...table, image_url: event.target.value })
+          }} type="text" placeholder="Image url" className="input input-bordered w-full " />
+
           <input value={table.description}
             onChange={(event) => { setTable({ ...table, description: event.target.value }) }}
             type="text" placeholder="Description" className="input input-bordered w-full " />
