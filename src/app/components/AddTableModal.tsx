@@ -19,6 +19,7 @@ export default function AddTableModal(props: {
     category: '',
     image_url:'',
     content_url:'',
+    created_at:'',
     contents: []
   });
   const [contents, setContents] = useState<Array<Content>>([

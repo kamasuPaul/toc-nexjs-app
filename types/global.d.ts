@@ -5,7 +5,7 @@ type Table ={
     category: string,
     image_url?:string,
     content_url?:string,
-    created_at?:string,
+    created_at:string,
     contents: Array<Content>
 }
 type Content = {
