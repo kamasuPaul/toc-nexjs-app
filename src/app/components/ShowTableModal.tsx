@@ -1,15 +1,30 @@
 import api from "../utils/axiosInstance";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Content from "./Content";
 import { v4 as uuidv4 } from 'uuid';
 
-export default function AddTableModal(props: {table:Table,
+export default function AddTableModal(props: {
+  table: Table,
   onClose: () => void; show: boolean;
 }) {
-  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    api.get(`tables/${props.table.id}`)
+      .then((response) => {
+        const table = response.data;
+        setContents(table.contents);
+      })
+      .catch((error) => {
+        console.log(error);
+      }).
+      finally(() => {
+        setLoading(false);
+      })
+  }, []);
+  const [loading, setLoading] = useState(true);
   const [violations, setViolations] = useState([]);
   const [table, setTable] = useState<Table>(props.table);
   const [contents, setContents] = useState<Array<Content>>(props.table.contents);
+
   if (!props.show) {
     return null;
   }
@@ -199,8 +214,8 @@ export default function AddTableModal(props: {table:Table,
             )}
           </div>
         </div>}
+        {loading && <progress className="progress progress-primary  w-100 mb-0"></progress>}
         <div className="divider"></div>
-
         <div className="flex flex-col space-y-2">
           <input value={table.name} onChange={(event) => {
             setTable({ ...table, name: event.target.value })
@@ -217,7 +232,7 @@ export default function AddTableModal(props: {table:Table,
           </select>
           <div className="divider">Contents</div>
           <div className="w-11/12">
-            {
+            {contents &&
               contents.map((content) => (
                 <Content indent={'1'} key={content.id} content={content} addChildContent={addChildContent} updateContent={updateContent} deleteContent={deleteContent} ></Content>
               ))
