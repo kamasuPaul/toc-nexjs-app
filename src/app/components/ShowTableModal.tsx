@@ -19,7 +19,7 @@ export default function AddTableModal(props: {
       finally(() => {
         setLoading(false);
       })
-  }, []);
+  }, [props.table.id]);
   const [loading, setLoading] = useState(true);
   const [violations, setViolations] = useState([]);
   const [table, setTable] = useState<Table>(props.table);
@@ -39,26 +39,21 @@ export default function AddTableModal(props: {
     }
     ])
   }
-  function creatNewtable() {
+  function updateTable() {
     setLoading(true);
     setViolations([]);
-    console.log("creating new table");
     const data = { ...table, contents: contents }
-    console.log(data);
-    api.post('tables', data)
+    api.patch(`tables/${table.id}`, data)
       .then((response) => {
-        console.log(response);
         props.onClose();
       })
       .catch((error) => {
         console.log(error);
         const violations = error.response.data.violations;
         setViolations(violations);
-        console.log(violations);
       }).
       finally(() => {
         setLoading(false);
-        console.log("done");
       })
   }
   function updateContent(id: string, name: string, pageNo: number) {
@@ -223,6 +218,13 @@ export default function AddTableModal(props: {
           <input value={table.description}
             onChange={(event) => { setTable({ ...table, description: event.target.value }) }}
             type="text" placeholder="Description" className="input input-bordered w-full " />
+          <input value={table.content_url} onChange={(event) => {
+            setTable({ ...table, content_url: event.target.value })
+          }} type="text" placeholder="Content url" className="input input-bordered w-full " />
+
+          <input value={table.image_url} onChange={(event) => {
+            setTable({ ...table, image_url: event.target.value })
+          }} type="text" placeholder="Image url" className="input input-bordered w-full " />
           <select className="select select-bordered w-full"
             onChange={(event) => { setTable({ ...table, category: event.target.value }) }}
           >
@@ -238,13 +240,13 @@ export default function AddTableModal(props: {
               ))
             }
           </div>
-          {/* <button className="text-blue-500 ml-2 btn btn-xs btn-circle btn-outline"
+          <button className="text-blue-500 ml-2 btn btn-xs btn-circle btn-outline"
             onClick={createRootContent}
-          >+</button> */}
+          >+</button>
         </div>
-        {/* <div className="modal-action" onClick={creatNewtable} >
-          <label htmlFor="my-modal" className={`btn btn-primary ${loading ? 'loading' : ''}`}>Save</label>
-        </div> */}
+        <div className="modal-action" onClick={updateTable} >
+          <label htmlFor="my-modal" className={`btn btn-primary ${loading ? 'loading' : ''}`}>Update</label>
+        </div>
       </div>
     </div>
   )
