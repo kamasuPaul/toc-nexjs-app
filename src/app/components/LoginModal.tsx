@@ -22,7 +22,7 @@ const LoginModal = () => {
             <div className='ml-0 pl-0'>
                 <div className="dropdown dropdown-end justify-end">
                     <div tabIndex={0} className="avatar justify-end">
-                        <div className="w-1/3 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                        <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                             <Image
                                 src={user.photoURL || ""}
                                 width={400}
@@ -42,7 +42,11 @@ const LoginModal = () => {
     }
     return (
         <div className="App">
-            <button onClick={() => signInWithGoogle()}>Sign In</button>
+            <button className="btn btn-sm btn-ghost"
+                onClick={() => signInWithGoogle()}
+            >
+                Sign In
+            </button>
         </div>
     );
 };
