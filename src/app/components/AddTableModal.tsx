@@ -16,7 +16,7 @@ export default function AddTableModal(props: {
     id: '',
     name: '',
     description: '',
-    category: '',
+    category: 'books',
     image_url:'',
     content_url:'',
     created_at:'',

@@ -22,7 +22,7 @@ const LoginModal = () => {
             <div className='ml-0 pl-0'>
                 <div className="dropdown dropdown-end justify-end">
                     <div tabIndex={0} className="avatar justify-end">
-                        <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                        <div className="w-10 rounded-full ring ring-primary ring-0">
                             <Image
                                 src={user.photoURL || ""}
                                 width={400}

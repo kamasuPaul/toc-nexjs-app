@@ -27,7 +27,7 @@ export default function TableSummary(props: { table: Table }) {
     <div>
       <div onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave} onClick={() => { setShowEditModal(true) }} className="card w-full bg-base-100 shadow-xl cursor-pointer hover:bg-primary">
-        <figure><img src={props.table.image_url ? props.table.image_url : "https://i.ibb.co/mX8bBHL/download.jpg"} alt="Shoes" className="w-full h-52 scale-100 hover:border-primary hover:border-4" /></figure>
+        <figure><img src={props.table.image_url ? props.table.image_url : "https://i.ibb.co/mX8bBHL/download.jpg"} alt={"photo of table of contents of the "+props.table.category+": "+tableName} className="w-full h-52 scale-100 hover:border-primary hover:border-4" /></figure>
         <div className="card-body"
         >
           <h2 className="card-title">
