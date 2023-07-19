@@ -30,11 +30,11 @@ export default function TableSummary(props: { table: Table }) {
         <figure><img src={props.table.image_url ? props.table.image_url : "https://i.ibb.co/mX8bBHL/download.jpg"} alt={"photo of table of contents of the " + props.table.category + ": " + tableName} className="w-full h-52 scale-100 hover:border-primary-focus hover:border-4" /></figure>
         <div className="card-body"
         >
-          <p className="card-title break-all">
+          <p className="card-title break-words">
             {tableName}
             {isLessThanTwoDaysAgo() && <div className="badge badge-secondary">NEW</div>}
           </p>
-          <p className="break-all" >{displayText}</p>
+          <p className="break-words" >{displayText}</p>
           <div className="card-actions justify-end">
             <div className="badge badge-outline">{props.table.category}</div>
           </div>
