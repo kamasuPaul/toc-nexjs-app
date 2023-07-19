@@ -24,17 +24,17 @@ export default function TableSummary(props: { table: Table }) {
   const tableName = isHovered ? props.table.name : (props.table.name.slice(0, 30) + (props.table.name.length > 30 ? " ..." : ''));
 
   return (
-    <div>
+    <div className="flex flex-wrap">
       <div onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave} onClick={() => { setShowEditModal(true) }} className="card w-full bg-base-100 shadow-xl cursor-pointer hover:bg-primary">
-        <figure><img src={props.table.image_url ? props.table.image_url : "https://i.ibb.co/mX8bBHL/download.jpg"} alt={"photo of table of contents of the "+props.table.category+": "+tableName} className="w-full h-52 scale-100 hover:border-primary hover:border-4" /></figure>
+        onMouseLeave={handleMouseLeave} onClick={() => { setShowEditModal(true) }} className="card w-full bg-primary-content shadow-xl cursor-pointer hover:bg-primary-focus">
+        <figure><img src={props.table.image_url ? props.table.image_url : "https://i.ibb.co/mX8bBHL/download.jpg"} alt={"photo of table of contents of the " + props.table.category + ": " + tableName} className="w-full h-52 scale-100 hover:border-primary-focus hover:border-4" /></figure>
         <div className="card-body"
         >
-          <h2 className="card-title">
+          <p className="card-title break-all">
             {tableName}
             {isLessThanTwoDaysAgo() && <div className="badge badge-secondary">NEW</div>}
-          </h2>
-          <p >{displayText}</p>
+          </p>
+          <p className="break-all" >{displayText}</p>
           <div className="card-actions justify-end">
             <div className="badge badge-outline">{props.table.category}</div>
           </div>
