@@ -16,11 +16,15 @@ module.exports = {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["light", "dark", "forest", "dracula", "night","bumblebee",
+    themes: [ "dark", "forest", "dracula", "night","bumblebee",
     {
       halloween: {
         ...require("daisyui/src/colors/themes")["[data-theme=halloween]"],
         "base-100":"black"
+      },
+      light: {
+        ...require("daisyui/src/colors/themes")["[data-theme=light]"],
+        "primary":"#F28C18"
       },
     }
   ],
